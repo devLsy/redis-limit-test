@@ -20,6 +20,8 @@ public class LimitService {
         String key = "rate_limit:" + clientIp;
         Long currentCount = redisTemplate.opsForValue().increment(key);
 
+        log.info("isAllowed Request~~~~");
+
         if (currentCount != null && currentCount == 1) {
             redisTemplate.expire(key, Duration.ofSeconds(WINDOW_SECONDS));
         }
