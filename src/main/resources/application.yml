@@ -1,0 +1,45 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  cache:
+    type: redis
+  devtools:
+    livereload.enabled: true
+    restart.enabled: true
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://localhost:3309/security
+    hikari:
+      username: cos
+      password: 1234
+      connectionTimeout: 10000
+      maximum-pool-size: 15
+      max-lifetime: 600000
+      readOnly: false
+      connection-test-query: SELECT 1
+  jpa:
+    hibernate:
+      ddl-auto: update #create update none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+# Redis 설정 추가
+data:
+  redis:
+    host: localhost   # Redis 서버 주소
+    port: 6379        # Redis 포트
+    password:         # (필요하면 비밀번호 추가)
+    timeout: 6000     # 연결 타임아웃 (ms)
+    lettuce:
+      pool:
+        max-active: 8  # 최대 활성 연결 수
+        max-idle: 8    # 최대 유휴 연결 수
+        min-idle: 0    # 최소 유휴 연결 수
+        max-wait: -1   # 최대 대기 시간 (무제한)
